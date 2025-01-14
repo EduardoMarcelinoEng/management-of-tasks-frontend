@@ -5,12 +5,9 @@ export default defineNuxtConfig({
   css: ['bootstrap/dist/css/bootstrap.min.css'],
   app: {
     head: {
-      // script: [
-      //   {
-      //     src: "~/assets/bootstrap/bootstrap.bundle.min.js",
-      //     type: "text/javascript"
-      //   }
-      // ]
+      script: [
+
+      ]
     }
   }
 })
