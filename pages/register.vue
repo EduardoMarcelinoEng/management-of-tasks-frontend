@@ -109,11 +109,15 @@ function handleClick(e) {
         background-color: var(--color-main);
     
         .content-center {
-            max-width: 380px;
-            width: 100%;
+            width: 95%;
             background-color: #FBFBFD;
             padding: 3em;
             border-radius: 18px;
+
+            @media (min-width: 430px) {
+                max-width: 380px;
+                width: 100%;
+            }
 
             form {
                 img {
