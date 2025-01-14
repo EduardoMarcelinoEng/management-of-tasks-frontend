@@ -35,6 +35,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
 
         ul {
             display: flex;
@@ -51,6 +52,10 @@
                 a {
                     text-decoration: none;
                     color: white;
+
+                    &.router-link-active {
+                        color: var(--color-primary);
+                    }
                 }
             }
         }
