@@ -17,10 +17,28 @@
     }
 </script>
 
+<style>
+    .page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+
+        main {
+            height: 100%;
+            width: 90%;
+            padding: 3rem 0;
+        }
+    }
+</style>
+
 <template>
-    <div>
+    <div class="page">
         <AppHead />
-        <slot />
+        <main>
+            <slot />
+        </main>
         <AppFooter />
     </div>
 </template>
