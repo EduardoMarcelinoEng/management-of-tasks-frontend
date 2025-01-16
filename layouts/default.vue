@@ -1,15 +1,10 @@
 <script setup>
     import moment from "moment";
+    import { jwtDecode } from "jwt-decode";
+    import utils from "../utils";
 
     if(process.client){
-        const isLogged = (()=>{
-            const tokenExpiresAt = localStorage.getItem("token_expiresAt");
-            if(!tokenExpiresAt) return false;
-
-            return moment(tokenExpiresAt).format("YYYY-MM-DD HH:mm:ss") >= moment().format("YYYY-MM-DD HH:mm:ss");
-        })();
-
-        if(!isLogged){
+        if(!utils.isLogged()){
             navigateTo({
                 path: '/login'
             });

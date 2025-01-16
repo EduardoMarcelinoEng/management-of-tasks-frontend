@@ -4,16 +4,10 @@
     });
 
     import moment from "moment";
+    import utils from "../utils";
 
     if(process.client){
-        const isLogged = (()=>{
-            const tokenExpiresAt = localStorage.getItem("token_expiresAt");
-            if(!tokenExpiresAt) return false;
-
-            return moment(tokenExpiresAt).format("YYYY-MM-DD HH:mm:ss") >= moment().format("YYYY-MM-DD HH:mm:ss");
-        })();
-
-        if(isLogged){
+        if(utils.isLogged()){
             navigateTo({
                 path: '/admin/tags'
             });
@@ -42,8 +36,8 @@
                     return;
                 }
 
-                localStorage.setItem("token", content.value);
-                localStorage.setItem("token_expiresAt", content.expiresAt.toString());
+                localStorage.setItem("token", content.token);
+                localStorage.setItem("token_expiresAt", content.expiresAt);
 
                 navigateTo('/admin/tags');
             })
