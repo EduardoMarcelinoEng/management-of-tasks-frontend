@@ -26,6 +26,16 @@
             padding: 3rem 0;
         }
     }
+
+    table {
+        tr {
+            .actions {
+                .btn {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
 </style>
 
 <template>
