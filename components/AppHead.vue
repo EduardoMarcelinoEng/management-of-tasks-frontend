@@ -1,5 +1,22 @@
 <script setup>
     function handleClick() {
+        fetch("http://localhost:3333/user/logout", {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+            .then(async rawResponse=>{
+                const content = await rawResponse.json();
+                
+                if(rawResponse.status >= 400){
+                    alert(content.message);
+                    return;
+                }
+            });
+
         localStorage.clear();
 
         navigateTo({
