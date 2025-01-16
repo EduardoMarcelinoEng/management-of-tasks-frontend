@@ -1,5 +1,7 @@
-<script>
+<script setup>
+    import moment from "moment";
 
+    const yearCurrent = moment().format("YYYY");
 </script>
 
 
@@ -36,6 +38,6 @@
 
 <template>
     <footer>
-        <p>Desenvolvido por <a target="_blank" href="https://eduardomarcelinodev.com.br/meus-projetos">Eduardo Marcelino</a> © 2025. <br> Todos os direitos reservados.</p>
+        <p>Desenvolvido por <a target="_blank" href="https://eduardomarcelinodev.com.br/meus-projetos">Eduardo Marcelino</a> © {{yearCurrent}}. <br> Todos os direitos reservados.</p>
     </footer>
 </template>
