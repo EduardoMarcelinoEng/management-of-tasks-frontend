@@ -1,21 +1,15 @@
 <script setup>
+    import http from "../services/http";
+
     function handleClick() {
-        fetch("http://localhost:3333/user/logout", {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
+        http.user.logout().then(async rawResponse=>{
+            const content = await rawResponse.json();
+            
+            if(rawResponse.status >= 400){
+                alert(content.message);
+                return;
             }
-        })
-            .then(async rawResponse=>{
-                const content = await rawResponse.json();
-                
-                if(rawResponse.status >= 400){
-                    alert(content.message);
-                    return;
-                }
-            });
+        });
 
         localStorage.clear();
 
@@ -53,6 +47,7 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        min-height: 55px;
 
         ul {
             display: flex;

@@ -5,6 +5,7 @@
 
     import moment from "moment";
     import utils from "../utils";
+    import http from "../services/http";
 
     if(process.client){
         if(utils.isLogged()){
@@ -20,28 +21,20 @@
     function handleClick(e) {
         e.target.disabled = true;
 
-        fetch("http://localhost:3333/user/auth", {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email: email.value, password: password.value})
+        http.user.auth({ email: email.value, password: password.value }).then(async rawResponse=>{
+            const content = await rawResponse.json();
+            
+            if(rawResponse.status >= 400){
+                alert(content.message);
+                return;
+            }
+
+            localStorage.setItem("token", content.token);
+            localStorage.setItem("token_expiresAt", content.expiresAt);
+
+            navigateTo('/admin/tags');
         })
-            .then(async rawResponse=>{
-                const content = await rawResponse.json();
-                
-                if(rawResponse.status >= 400){
-                    alert(content.message);
-                    return;
-                }
-
-                localStorage.setItem("token", content.token);
-                localStorage.setItem("token_expiresAt", content.expiresAt);
-
-                navigateTo('/admin/tags');
-            })
-            .finally(()=>e.target.disabled = false);
+        .finally(()=>e.target.disabled = false);
     }
 </script>
 

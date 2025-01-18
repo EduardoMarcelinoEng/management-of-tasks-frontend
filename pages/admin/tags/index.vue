@@ -13,6 +13,7 @@
 </script>
 
 <script setup>
+  import http from "../../../services/http";
   const name = defineModel('name');
   const isLoading = useState('isLoading', ()=> true);
   const setLoading = newValue => isLoading.value = newValue;
@@ -26,25 +27,16 @@
   }
 
   function fnActionConfirmInclude(){
-    fetch("http://localhost:3333/tag", {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify({name: name.value})
-    })
-      .then(async rawResponse=>{
-        const content = await rawResponse.json();
-        
-        if(rawResponse.status >= 400){
-          alert(content.message);
-          return;
-        }
+    http.tag.create({name: name.value}).then(async rawResponse=>{
+      const content = await rawResponse.json();
+      
+      if(rawResponse.status >= 400){
+        alert(content.message);
+        return;
+      }
 
-        tags.value = [...tags.value, content]
-      });
+      tags.value = [...tags.value, content]
+    });
   }
 
   function fnActionConfirmEdit(tag){
@@ -52,56 +44,39 @@
 
     if(tag.name !== form.value.name) obj.name = form.value.name;
 
-    fetch(`http://localhost:3333/tag/${tag.id}`, {
-      method: 'PUT',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify(obj)
-    })
-      .then(async rawResponse=>{
-        const content = await rawResponse.json();
-        
-        if(rawResponse.status >= 400){
-          alert(content.message);
-          return;
+    http.tag.update(tag.id, obj).then(async rawResponse=>{
+      const content = await rawResponse.json();
+      
+      if(rawResponse.status >= 400){
+        alert(content.message);
+        return;
+      }
+
+      tags.value = tags.value.map(t=>{
+        if(t.id === tag.id){
+          return Object.assign(t, content);
         }
 
-        tags.value = tags.value.map(t=>{
-          if(t.id === tag.id){
-            return Object.assign(t, content);
-          }
-
-          return t;
-        });
+        return t;
       });
+    });
   }
 
   function fnActionConfirmDestroy(id){
-    fetch(`http://localhost:3333/tag/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
+    http.tag.destroy(id).then(async rawResponse=>{
+      const content = await rawResponse.json();
+      
+      if(rawResponse.status >= 400){
+        alert(content.message);
+        return;
       }
-    })
-      .then(async rawResponse=>{
-        const content = await rawResponse.json();
-        
-        if(rawResponse.status >= 400){
-          alert(content.message);
-          return;
-        }
 
-        tags.value = tags.value.filter(t=>t.id !== id);
-      });
+      tags.value = tags.value.filter(t=>t.id !== id);
+    });
   }
 
-  function onChange(name, value){
-    form.value[name] = value;
+  function onChange(key, value){
+    form.value[key] = value;
   }
 
   function onCloseModalInclude(){
@@ -117,31 +92,20 @@
     form.value = {};
   }
 
-  function fnFindAll(){
-    fetch("http://localhost:3333/tag", {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-    })
-        .then(async rawResponse=>{
-            const content = await rawResponse.json();
-            
-            if(rawResponse.status >= 400){
-              alert(content.message);
-
-              return;
-            }
-
-            tags.value = content;
-        })
-        .finally(()=>setLoading(false));
-  }
-
   if(process.client){
-    await fnFindAll();
+    http.tag.findAll()
+      .then(async rawResponse=>{
+        const content = await rawResponse.json();
+        
+        if(rawResponse.status >= 400){
+          alert(content.message);
+
+          return;
+        }
+
+        tags.value = content;
+      })
+      .finally(()=>setLoading(false));
   }
 </script>
 
@@ -162,7 +126,8 @@
     <div v-if="isLoading" class="loading mt-3">
       <div class="spinner-border" role="status"></div>
     </div>
-    <table v-if="!isLoading" class="table">
+    <p class="mt-3" v-if="!isLoading && !tags.length">Não há dados para exibir.</p>
+    <table v-if="!isLoading && tags.length" class="table">
       <thead>
         <tr>
           <th scope="col">Id</th>

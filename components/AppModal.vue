@@ -35,21 +35,7 @@ defineExpose({
 
 </script>
 
-<style>
-    body {
-        /* &:not(.modal-open) {
-            .modal-backdrop {
-                display: none;
-            }
-        } */
-    }
-    
-    .modal-body {
-        input:focus {
-            border-color: var(--color-primary);
-        }
-    }
-
+<style> 
     .btn {
         border: 0;
 

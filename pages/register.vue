@@ -1,4 +1,6 @@
 <script setup>
+import http from "../services/http";
+
 definePageMeta({
   layout: false,
   alias: "/registro"
@@ -26,20 +28,11 @@ function handleClick(e) {
 
         return;
     }
-
-    fetch("http://localhost:3333/user", {
-        method: 'POST',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        http.user.create({
             email: email.value,
             password: password.value,
             name: name.value
-        })
-    })
-        .then(async rawResponse=>{
+        }).then(async rawResponse=>{
             const content = await rawResponse.json();
             
             if(rawResponse.status >= 400){
