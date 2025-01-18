@@ -1,3 +1,40 @@
+# 1 - Executação do projeto em modo de desenvolvimento
+-Execute o comando `npm install` na raiz do projeto;
+-Rode o comando `npm run dev` na raiz do projeto.
+
+# 2 - Executação do projeto em modo de produção
+-Execute o comand `npm install` na raiz do projeto;
+-Rode o comando `npm run build` na raiz do projeto.
+-Rode o comando `npm start` na raiz do projeto.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
