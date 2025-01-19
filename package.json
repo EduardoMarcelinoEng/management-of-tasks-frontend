@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "nuxt start",
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+      "build": "nuxt build",
+      "dev": "nuxt dev",
+      "generate": "nuxt generate",
+      "preview": "nuxt preview",
+      "postinstall": "nuxt prepare",
+      "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
