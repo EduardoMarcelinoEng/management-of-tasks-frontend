@@ -1,3 +1,5 @@
+import config from "../config"
+
 type UserAuthType = {
     email: String;
     password: String;
@@ -20,7 +22,7 @@ type TaskType = {
 export default {
     tag: {
         create(obj: TagType){
-            return fetch("http://localhost:3333/tag", {
+            return fetch(`${config.host}/tag`, {
                 method: 'POST',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -31,7 +33,7 @@ export default {
             });
         },
         findAll(){
-            return fetch("http://localhost:3333/tag", {
+            return fetch(`${config.host}/tag`, {
                 method: 'GET',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -41,7 +43,7 @@ export default {
             });
         },
         update(id: number, obj: TagType){
-            return fetch(`http://localhost:3333/tag/${id}`, {
+            return fetch(`${config.host}/tag/${id}`, {
                 method: 'PUT',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -52,7 +54,7 @@ export default {
             });
         },
         destroy(id: number){
-            return fetch(`http://localhost:3333/tag/${id}`, {
+            return fetch(`${config.host}/tag/${id}`, {
                 method: 'DELETE',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -64,7 +66,7 @@ export default {
     },
     task: {
         findAll(obj = {}){
-            return fetch("http://localhost:3333/task?" + new URLSearchParams({
+            return fetch(`${config.host}/task?` + new URLSearchParams({
                 currentPage: (obj as any).currentPage || 1,
                 id: (obj as any).id || "",
                 title: (obj as any).title || "",
@@ -80,7 +82,7 @@ export default {
             });
         },
         create(obj: TagType){
-            return fetch("http://localhost:3333/task", {
+            return fetch(`${config.host}/task`, {
                 method: 'POST',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -91,7 +93,7 @@ export default {
             });
         },
         update(id: number, obj: TaskType){
-            return fetch(`http://localhost:3333/task/${id}`, {
+            return fetch(`${config.host}/task/${id}`, {
                 method: 'PUT',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -102,7 +104,7 @@ export default {
             });
         },
         destroy(id: number){
-            return fetch(`http://localhost:3333/task/${id}`, {
+            return fetch(`${config.host}/task/${id}`, {
                 method: 'DELETE',
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -114,7 +116,7 @@ export default {
     },
     user: {
         create(obj: UserType){
-            return fetch("http://localhost:3333/user", {
+            return fetch(`${config.host}/user`, {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -124,7 +126,7 @@ export default {
             });
         },
         auth({ email, password }: UserAuthType){
-            return fetch("http://localhost:3333/user/auth", {
+            return fetch(`${config.host}/user/auth`, {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -134,7 +136,7 @@ export default {
             });
         },
         logout(){
-            return fetch("http://localhost:3333/user/logout", {
+            return fetch(`${config.host}/user/logout`, {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',

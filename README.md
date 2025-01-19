@@ -1,3 +1,6 @@
+# 0 - Configuração padrão
+-Na pasta config é o local onde ficam as configurações. Por padrão, o endereço do backend está apostando para `http://localhost:3333`, mas caso você tenha configurado em outro local, vai ser necessário atualizar o host dessa pasta.
+
 # 1 - Executação do projeto em modo de desenvolvimento
 -Execute o comando `npm install` na raiz do projeto;
 -Rode o comando `npm run dev` na raiz do projeto.
