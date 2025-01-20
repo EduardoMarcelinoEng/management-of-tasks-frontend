@@ -1,3 +1,3 @@
 export default {
-    host: "http://task.management.eduardomarcelinodev.com.br:3333"
+    host: "http://taskmanagement.eduardomarcelinodev.com.br:3333"
 }
