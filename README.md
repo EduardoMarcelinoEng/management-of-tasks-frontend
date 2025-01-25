@@ -17,4 +17,4 @@
 
 A url inicial do projeto é /login. Basta digitar essa url no navegador e acessar. Exemplo: https://taskmanagement.eduardomarcelinodev.com.br/login
 
-Projeto back-end: `https://github.com/EduardoMarcelinoEng/management-of-tasks-backend`
+Projeto back-end: https://github.com/EduardoMarcelinoEng/management-of-tasks-backend
